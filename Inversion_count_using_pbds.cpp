@@ -50,6 +50,9 @@ void pg()
 }
 
 vector<int> smaller_left(vector<int> nums) {
+
+
+    //No. of smaller elements on the left
     int n = nums.size();
     pbds s;
     vector<int> ans(n, 0);
@@ -72,23 +75,6 @@ vector<int> inversion_count(vector<int> nums) {
 
     //No. of smaller elements on the right
 
-    // int n = nums.size();
-    // reverse(nums.begin(), nums.end());
-    // pbds s;
-    // vector<int> ans(n, 0);
-    // for (int i = 0; i < n; i++) {
-    //     ans[i] = s.order_of_key(make_pair(nums[i], 0));
-
-
-    //     // Greater than or equal to
-    //     //     ans[i] = s.order_of_key(make_pair(nums[i], i));
-
-    //     s.insert(make_pair(nums[i], i));
-    // }
-
-    // reverse(ans.begin(), ans.end());
-    // return ans;
-
     int n = nums.size();
     pbds s;
     vector<int> ans(n, 0);
@@ -103,25 +89,28 @@ vector<int> inversion_count(vector<int> nums) {
 
 }
 
-int inversion_count_alt() {
+vector<int> inversion_count_alt(vector<int> nums) {
+
     //No. of smaller elements on the right
 
-    // int n = nums.size();
-    // reverse(nums.begin(), nums.end());
-    // pbds s;
-    // vector<int> ans(n, 0);
-    // for (int i = 0; i < n; i++) {
-    //     ans[i] = s.order_of_key(make_pair(nums[i], 0));
+    int n = nums.size();
+    reverse(nums.begin(), nums.end());
+    pbds s;
+    vector<int> ans(n, 0);
+    for (int i = 0; i < n; i++) {
+
+        // Count of strictly smaller  numbers on the right
+        ans[i] = s.order_of_key(make_pair(nums[i], 0));
 
 
-    //     // Greater than or equal to
-    //     //     ans[i] = s.order_of_key(make_pair(nums[i], i));
+        // Count of smaller or equal numbers on the right
+        //     ans[i] = s.order_of_key(make_pair(nums[i], i));
 
-    //     s.insert(make_pair(nums[i], i));
-    // }
+        s.insert(make_pair(nums[i], i));
+    }
 
-    // reverse(ans.begin(), ans.end());
-    // return ans;
+    reverse(ans.begin(), ans.end());
+    return ans;
 
 }
 
@@ -135,7 +124,7 @@ int32_t main()
     vector<int> arr(n);
     for (int i = 0; i < n; i++) cin >> arr[i];
 
-    vector<int> v = smaller_left(arr);
+    vector<int> v = inversion_count_alt(arr);
     for (int i = 0; i < n; i++) cout << v[i] << " ";
     cout << endl;
 
